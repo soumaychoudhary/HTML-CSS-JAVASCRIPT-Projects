@@ -3,101 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Whether App</title>
+    <title>Rock Paper Scissors Game</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="card">
-        <div class="search">
-            <input type="text" placeholder="enter city name" spellcheck="false">
-            <button><img src="whetherimages/search.png" alt="abcd"></button>
+    <h1>Rock Paper Scissors</h1>
+    <div class="choices">
+        <div class="choice" id="rock">
+            <img src="local image/rock.png" />
         </div>
-
-        <div class="error">
-            <p>Invalid city name</p>
+        <div class="choice" id="paper">
+            <img src="local image/paper.png" />
         </div>
-
-        <div class="weather">
-            <img src="whetherimages/rain.png" class="weather-icon">
-            <h1 class="temp">22°c</h1>
-            <h2 class="city">New York</h2>
-            <div class="details">
-                <div class="col">
-                    <img src="whetherimages/humidity.png">
-                    <div>
-                        <p class="humidity">50%</p>
-                        <p>Humidity</p>
-                    </div>
-                </div>
-                <div class="col">
-                    <img src="whetherimages/wind.png">
-                    <div>
-                        <p class="wind">15 km/h</p>
-                        <p>Wind Speed</p>
-                    </div>
-                </div>
-            </div>
+        <div class="choice" id="scissors">
+            <img src="local image/scissors.png" />
         </div>
     </div>
 
+    <div class="score-board">
+        <div class="score">
+            <p id="user-score">0</p>
+            <p>you</p>
+        </div>
+        <div class="score">
+            <p id="comp-score">0</p>
+            <p>comp</p>
+        </div>
+    </div>
 
-    <script>
-        const apiKey = "327beeb2517999ee12862d83349f2a8e";
-        const apiUrl ="https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
+    <div class="msg-container">
+        <p id="msg">play your move</p>
+    </div>
 
-        const searchBox = document.querySelector(".search input");
-        const searchBtn = document.querySelector(".search button");
-        const weatherIcon = document.querySelector(".weather-icon");
-
-        async function checkWeather(city){
-            const response = await fetch(apiUrl + city + `&appid=${apiKey}`);
-
-            if(response.status == 404){
-                document.querySelector(".error").style.display="block";
-                document.querySelector(".weather").style.display="none";
-            }
-            else{
-                var data = await response.json();
-
-                console.log(data);
-
-                document.querySelector(".city").innerHTML=data.name;
-                document.querySelector(".temp").innerHTML=Math.floor(data.main.temp )+ "°c";
-                document.querySelector(".humidity").innerHTML=data.main.humidity + "%";
-                document.querySelector(".wind").innerHTML=data.wind.speed + " km/h";
-
-                if(data.weather[0].main ==="Clouds"){
-                    weatherIcon.src = "whetherimages/clouds.png";
-                }
-                else if(data.weather[0].main ==="Clear"){
-                    weatherIcon.src = "whetherimages/clear.png";
-                }
-                else if(data.weather[0].main ==="Rain"){
-                    weatherIcon.src = "whetherimages/rain.png";
-                }
-                else if(data.weather[0].main ==="Drizzle"){
-                    weatherIcon.src = "whetherimages/drizzle.png";
-                }
-                else if(data.weather[0].main ==="Mist"){
-                    weatherIcon.src = "whetherimages/mist.png";
-                }
-
-                document.querySelector(".error").style.display="none";
-                document.querySelector(".weather").style.display="block";
-            }         
-        };
-        
-
-        searchBtn.addEventListener("click",()=>{
-            checkWeather(searchBox.value);
-        });
-
-        searchBox.addEventListener("keydown",function(e){
-            if(event.key === "Enter"){
-                checkWeather(searchBox.value);
-            }
-        });
-        
-    </script>
+    <script src="app.js"></script>
 </body>
 </html>
